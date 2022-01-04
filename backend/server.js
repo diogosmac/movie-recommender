@@ -5,9 +5,8 @@ const mongoose = require("mongoose");
 //const dotenv = require("dotenv").config({ path: "./config/.env" });
 const helmet = require("helmet")
 const config = require("./config/index")
-const {UserRoutes, MovieRoutes} = require("./routes/index");
+const { UserRoutes, MovieRoutes } = require("./routes/index");
 const loaders = require("./loaders");
-
 
 config();
 loaders();
@@ -17,13 +16,10 @@ app.use(cors());
 app.use(express.json());
 app.use(helmet());
 
-
 // API endpoints
-
 
 app.listen(process.env.PORT, function () {
   console.log("Server is running on port: " + process.env.PORT);
-  app.use("/users",UserRoutes)
-  app.use("/movie",MovieRoutes)
+  app.use("/users", UserRoutes)
+  app.use("/movie", MovieRoutes)
 });
-

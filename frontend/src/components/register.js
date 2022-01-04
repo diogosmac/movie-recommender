@@ -53,7 +53,9 @@ export default class register extends Component {
     }
 
     render() {
-
+        if (localStorage.getItem('token') !== null) {
+            return (<Redirect to='/' push={true} />)
+        }
         return (
             <div>
                 <form onSubmit={this.onSubmit}>

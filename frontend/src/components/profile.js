@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { Redirect, Link } from "react-router-dom"
 import axios from "axios";
-import newStyle from "../profile.css";
+import newStyle from "../styles/profile.css";
 
 export default class Profile extends Component {
   constructor(props) {
@@ -9,6 +10,9 @@ export default class Profile extends Component {
   }
 
   render() {
+    if (localStorage.getItem('token') === null) {
+      return (<Redirect to='/' push={true} />)
+    }
     return (
       <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
         <div class="card p-4">
@@ -70,7 +74,7 @@ export default class Profile extends Component {
         </div>
         <div class="container">
           <div id="allComments">
-            
+
           </div>
         </div>
       </div>

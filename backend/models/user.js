@@ -3,21 +3,21 @@ const mongoose = require("mongoose");
 
 
 const UserSchema = new mongoose.Schema({
-    name:String,
+    name: String,
     email: {
-        type:String,
+        type: String,
     },
-    password:String,
-    img : {
-        type : String,
-        default :""
+    password: String,
+    img: {
+        type: String,
+        default: ""
     },
     accessLevel: {
-        type:Number,
-        default:parseInt(process.env.ACCESS_LEVEL_NORMAL_USER)
+        type: Number,
+        default: parseInt(process.env.ACCESS_LEVEL_NORMAL_USER)
     }
 },
-{timestamps:true}
+    { timestamps: true }
 );
 
-module.exports = mongoose.model("user",UserSchema);
+module.exports = mongoose.model("user", UserSchema);

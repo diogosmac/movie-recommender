@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 
 export default class CreateUser extends Component {
-    
+
     constructor(props) {
         super(props);
 
@@ -15,7 +15,7 @@ export default class CreateUser extends Component {
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
-    
+
     onChangeUsername(event) {
         this.setState({ username: event.target.value });
     }
@@ -33,7 +33,7 @@ export default class CreateUser extends Component {
         }
 
         axios.post('http://localhost:4000/add', newUser)
-             .then(res => console.log(res.data));
+            .then(res => console.log(res.data));
 
         this.setState({
             username: '',
@@ -47,22 +47,22 @@ export default class CreateUser extends Component {
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <label>Username: </label>
-                        <input type="text" 
-                               className="form-control" 
-                               value={this.state.username}
-                               onChange={this.onChangeUsername}
-                               />
+                        <input type="text"
+                            className="form-control"
+                            value={this.state.username}
+                            onChange={this.onChangeUsername}
+                        />
                     </div>
                     <div className="form-group">
                         <label>Email: </label>
-                        <input type="text" 
-                               className="form-control" 
-                               value={this.state.email}
-                               onChange={this.onChangeEmail}
-                               />  
+                        <input type="text"
+                            className="form-control"
+                            value={this.state.email}
+                            onChange={this.onChangeEmail}
+                        />
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Create User" className="btn btn-primary"/>
+                        <input type="submit" value="Create User" className="btn btn-primary" />
                     </div>
                 </form>
             </div>
