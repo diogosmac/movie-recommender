@@ -10,7 +10,6 @@ db.once("open", () => {
 })
 
 const connectDB = async () => {
-    // await Mongoose.connect(`mongodb://127.0.0.1:27017/teamproject`, {
     await Mongoose.connect(process.env.CONNECTION_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
