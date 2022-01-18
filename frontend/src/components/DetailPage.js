@@ -7,7 +7,8 @@ import Comments from './comments/comments';
 
 import { FaRegHeart, FaStar } from 'react-icons/fa';
 // import FaHeart when likes implemented
-import { SiNetflix, SiAmazon, SiHbo } from 'react-icons/si';
+// import { SiNetflix, SiAmazon, SiHbo } from 'react-icons/si';
+import { Link } from 'react-router-dom';
 
 export default class DetailPage extends Component {
 
@@ -17,6 +18,7 @@ export default class DetailPage extends Component {
         this.state = {
             id: this.props.match.params.id,
             movies: [],
+            streams: null,
             likes: 0
         };
 
@@ -31,6 +33,14 @@ export default class DetailPage extends Component {
                 console.log(response.data)
                 this.setState({ movies: response.data });
                 console.log(response.data);
+            })
+
+        axios.get(`http://localhost:4000/movie/details/streaming/${id}`)
+            .then((response) => {
+                let results = response.data.results
+                if ('PL' in results) {
+                    this.setState({ streams: results.PL.link })
+                }
             })
 
         axios.get(`http://localhost:4000/movie/details/like/${id}`).then((response) => {
@@ -48,8 +58,6 @@ export default class DetailPage extends Component {
     }
 
     render() {
-
-
         return (
             <div>
                 <div class='movie-header'>
@@ -82,10 +90,18 @@ export default class DetailPage extends Component {
                             </div>
                         </div>
                         <div class='movie-where-to-watch'>
-                            <span>Watch it on:</span>
-                            <a class='streaming-link' href='https://www.netflix.com'><SiNetflix /></a>
-                            <a class='streaming-link' href='https://www.primevideo.com'><SiAmazon /></a>
-                            <a class='streaming-link' href='https://hbogo.pl/'><SiHbo /></a>
+                            <Link to={{ pathname: "https://example.zendesk.com/hc/en-us/articles/123456789-Privacy-Policies" }} target="_blank" />
+                            {
+                                this.state.streams !== null
+                                    ? <span>
+                                        Check&nbsp;
+                                        <Link to={{ pathname: this.state.streams }} target="_blank">here</Link>
+                                        &nbsp;where you can watch {this.state.movies.title} right now!
+                                    </span>
+                                    : <span>
+                                        Unfortunately, this movie is not available to stream in Poland :(
+                                    </span>
+                            }
                         </div>
                     </div>
                 </div>

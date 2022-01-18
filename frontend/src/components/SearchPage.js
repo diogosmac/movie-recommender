@@ -10,6 +10,7 @@ import {
   Button,
   ButtonGroup
 } from "reactstrap";
+import TextTruncate from "react-text-truncate";
 import { Redirect } from "react-router-dom";
 
 export default class SearchPage extends Component {
@@ -29,20 +30,6 @@ export default class SearchPage extends Component {
   update = () => {
     this.setState({ redirect: null })
   }
-
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //   return {
-  //     selectValue: nextProps.match.params.slug,
-  //     redirect: false
-  //   }
-  // }
-
-  // handleSelectChange(event) {
-  //   this.setState({
-  //     selectValue: event.target.value,
-  //     redirect: true
-  //   });
-  // }
 
   nextpage = () => {
     if (this.state.pageNumber === this.state.totalPages) return;
@@ -99,12 +86,6 @@ export default class SearchPage extends Component {
   render() {
     if (this.state.redirect) {
       return <Redirect to={this.state.redirect} />
-      // } else if (this.props.params.match.query != this.state.query) {
-      //   this.setState({
-      //     query: this.props.params.match.query,
-      //     pageNumber: 1
-      //   })
-      //   this.componentDidMount()
     }
     return (
       <div>
@@ -130,7 +111,12 @@ export default class SearchPage extends Component {
                       />
                     }
                     <CardBody>
-                      <CardText>{currentMovie.overview} </CardText>
+                      <CardText>
+                        <TextTruncate
+                          line={3}
+                          text={currentMovie.overview}
+                        />
+                      </CardText>
                       <Button href={`/movie/details/${currentMovie.id}`} >Card Link</Button>
                     </CardBody>
                   </Card>

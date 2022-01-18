@@ -24,12 +24,18 @@ router.get("/search/:name", (req, res, next) => {
         .catch(err => next(err));
 })
 
-// http://localhost:4000/movie/${this.state.pageNumber}
-// http://localhost:4000/movie/details/${id}
-// http://localhost:4000/movie/search/${}
-
+// get details of movie by id
 router.get("/details/:id", (req, res, next) => {
     axios.get(`https://api.themoviedb.org/3/movie/${req.params.id}?api_key=8ef1582bce336c778e54d74f414322a7&language=en-US`).then(response => {
+        console.log(response.data);
+        res.send(response.data);
+    })
+        .catch(err => next(err));
+})
+
+// get streaming services of movie by id
+router.get("/details/streaming/:id", (req, res, next) => {
+    axios.get(`https://api.themoviedb.org/3/movie/${req.params.id}/watch/providers?api_key=8ef1582bce336c778e54d74f414322a7`).then(response => {
         console.log(response.data);
         res.send(response.data);
     })

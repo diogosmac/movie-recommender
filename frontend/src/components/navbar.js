@@ -73,7 +73,7 @@ export default class Navbar extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="collapse navbar-collapse">
-          <Link to="/" className="navbar-brand">TPMDb (Team Project Movie Database)</Link>
+          <Link to="/" className="navbar-brand">ASEMDb (ASE Movie Database)</Link>
           {localStorage.getItem('token') !== null ?
             <this.auth />
             :
