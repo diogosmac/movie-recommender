@@ -10,6 +10,7 @@ import {
   Button,
   ButtonGroup
 } from "reactstrap";
+import TextTruncate from "react-text-truncate";
 
 export default class MoviePage extends Component {
   constructor(props) {
@@ -85,7 +86,12 @@ export default class MoviePage extends Component {
                       />
                     }
                     <CardBody>
-                      <CardText>{currentMovie.overview} </CardText>
+                      <CardText>
+                        <TextTruncate
+                          line={3}
+                          text={currentMovie.overview}
+                        />
+                      </CardText>
                       <Button href={`/movie/details/${currentMovie.id}`} >Card Link</Button>
                     </CardBody>
                   </Card>
