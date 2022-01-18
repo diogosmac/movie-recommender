@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 // import CreateUser from './components/create-user.component'
 import SignUp from './components/register';
 import LogIn from './components/login';
-import MoviePage from './components/MoviePage';
+import MoviePage from './components/moviepage';
 import DetailPage from './components/DetailPage';
 import SearchPage from './components/SearchPage';
 import Profile from './components/profile'
