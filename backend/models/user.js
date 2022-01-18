@@ -10,8 +10,8 @@ const UserSchema = new mongoose.Schema(
     },
     password: String,
     country: String,
-    genres: Object,
-    age: Number,
+    genres: [Object],
+    age: String,
     liked_genres: [String],
     liked_movies: [Number],
     img: {

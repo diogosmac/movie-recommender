@@ -63,12 +63,19 @@ export default class register extends Component {
   onSubmit(e) {
     e.preventDefault();
 
+    //put 
+    let updatedGenres = []
+
+    this.state.genres.forEach(function (value, index) {
+      if(value) updatedGenres.push(genresList[index])
+    });
+
     const newUser = {
       name: this.state.name,
       email: this.state.email,
       password: this.state.password,
-      country: this.state.country,
-      genres: this.state.genres,
+      country: this.state.country.value,
+      genres: updatedGenres,
       age: this.state.age,
       liked_genres: this.state.liked_genres,
       liked_movies: this.state.liked_movies,
@@ -85,10 +92,14 @@ export default class register extends Component {
       liked_movies: [],
     });
 
+    
+
     console.log(newUser);
     axios
       .post("http://localhost:4000/users", newUser)
-      .then((res) => console.log(res.data));
+      .then((res) => {
+        console.log(res.error);
+    })
   }
 
   render() {

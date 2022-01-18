@@ -8,7 +8,7 @@ const {create,index, login} = require("../controllers/User");
 const authenticateToken = require("../middlewares/authenticate");
 
 router.route("/").get(index);
-router.route("/").post(validate(schemas.createValidation),create);
+router.route("/").post(create);
 router.route("/login").post(validate(schemas.loginValidation),login);
 router.post(`/logout`, (req,res) => {       
     res.json({})

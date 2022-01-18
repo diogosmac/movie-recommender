@@ -11,9 +11,8 @@ const create = async (req, res) => {
   try {
     req.body.password = passwordToHash(req.body.password); //crypto
     response = await insert(req.body);
-    res.status(httpStatus.CREATED).send(response);
   } catch (error) {
-    res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error);
+    res.status(501)
   }
 };
 

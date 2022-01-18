@@ -3,7 +3,13 @@ const User = require("../models/user");
 
 const insert = (userData) => {
     const user = new User(userData);
-    return user.save();
+    console.log("gayyyy")
+    console.log(user)
+    return user.save(function (err, doc) {
+    if (err) return console.error(err);
+    console.log(doc);
+    // Doc will contain record saved in db.
+    });
 }
 const list = () => 
 {
