@@ -1,0 +1,22 @@
+.visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.search-bar {
+  margin: 0 1em;
+  display: inline-flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+
+#header-search {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}

@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import { Redirect, Link } from "react-router-dom"
-import axios from "axios";
-import newStyle from "../styles/profile.css";
+import { Redirect } from "react-router-dom"
+// import axios from "axios";
+// import newStyle from "../styles/profile.css";
 
 export default class Profile extends Component {
+
   constructor(props) {
     super(props);
-    this.state = { movies: [] ,
-                  name:localStorage.getItem('name')};
-    
+    this.state = {
+      movies: [],
+      name: localStorage.getItem('name')
+    };
   }
-  
-  
 
   render() {
     if (localStorage.getItem('token') === null) {
@@ -28,6 +28,7 @@ export default class Profile extends Component {
                 src="https://i.imgur.com/wvxPV9S.png"
                 height="100"
                 width="100"
+                alt="profile avatar"
               />
             </button>{" "}
             <span class="name mt-3">{this.state.name}</span>{" "}

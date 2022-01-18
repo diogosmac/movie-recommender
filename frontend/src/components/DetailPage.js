@@ -1,15 +1,16 @@
 import React, { Component } from 'react'
 import axios from "axios"
-import { useParams } from 'react-router-dom';
 import '../styles/movie.css'
 import '../styles/comments.css'
 
 import Comments from './comments/comments';
 
-import { FaRegHeart, FaHeart, FaStar } from 'react-icons/fa';
+import { FaRegHeart, FaStar } from 'react-icons/fa';
+// import FaHeart when likes implemented
 import { SiNetflix, SiAmazon, SiHbo } from 'react-icons/si';
 
 export default class DetailPage extends Component {
+
     constructor(props) {
         super(props)
 
@@ -23,7 +24,6 @@ export default class DetailPage extends Component {
 
     componentDidMount() {
         var id = this.state.id
-        console.log("mert baba" + id)
         axios.get(`http://localhost:4000/movie/details/${id}`)
             .then((response) => {
                 let genres = response.data.genres.map(g => g.name);
@@ -32,9 +32,9 @@ export default class DetailPage extends Component {
                 this.setState({ movies: response.data });
                 console.log(response.data);
             })
-        
+
         axios.get(`http://localhost:4000/movie/details/like/${id}`).then((response) => {
-            this.setState({likes : response.data.length})
+            this.setState({ likes: response.data.length })
             console.log(this.likes)
         })
     }
@@ -52,7 +52,6 @@ export default class DetailPage extends Component {
 
         return (
             <div>
-                <h2>Movie ID is {this.props.match.params.id}</h2>
                 <div class='movie-header'>
                     <span class='movie-title'>{this.state.movies.title}</span>
                     <span class='movie-detail genre'><div>{this.state.movies.genres}</div></span>

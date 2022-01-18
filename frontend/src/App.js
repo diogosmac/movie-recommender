@@ -1,13 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
 
 // import UsersList from './components/users-list.component'
 // import CreateUser from './components/create-user.component'
 import SignUp from './components/register';
 import LogIn from './components/login';
-import moviepage from "./components/moviepage"
+import MoviePage from './components/MoviePage';
 import DetailPage from './components/DetailPage';
+import SearchPage from './components/SearchPage';
 import Profile from './components/profile'
 import Navbar from './components/navbar';
 
@@ -17,10 +18,11 @@ function App() {
       <div className="container">
         <Navbar />
         <br />
+        <Route path="/" exact component={MoviePage} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/signin" component={LogIn} />
-        <Route path="/" exact component={moviepage} />
         <Route path="/profile" exact component={Profile} />
+        <Route path="/search/:query" exact component={SearchPage} />
         <Route exact path="/movie/details/:id" component={DetailPage} />
       </div >
     </Router >
