@@ -1,10 +1,6 @@
 const express = require("express")
 const router = express.Router()
 const axios = require("axios")
-const { like, unlike } = require("../controllers/User")
-const { create, FindByImdbIds, update } = require("../controllers/Comment")
-// const validate = require("../middlewares/validate")
-// const authenticate = require("../middlewares/authenticate")
 
 // get generic recommendations (specific page number)
 router.get("/:pageNumber", (req, res, next) => {
@@ -24,15 +20,6 @@ router.get("/search/:name", (req, res, next) => {
         .catch(err => next(err))
 })
 
-// get details of movie by id
-router.get("/details/:id", (req, res, next) => {
-    axios.get(`https://api.themoviedb.org/3/movie/${req.params.id}?api_key=8ef1582bce336c778e54d74f414322a7&language=en-US`).then(response => {
-        // console.log(response.data)
-        res.send(response.data)
-    })
-        .catch(err => next(err))
-})
-
 // get recommendations based on liked movie
 router.get("/recommendations/:id", (req, res, next) => {
     axios.get(`https://api.themoviedb.org/3/movie/${req.params.id}/recommendations?api_key=8ef1582bce336c778e54d74f414322a7&language=en-US`).then(response => {
@@ -42,20 +29,9 @@ router.get("/recommendations/:id", (req, res, next) => {
         .catch(err => next(err))
 })
 
-// get streaming services of movie by id
-router.get("/details/streaming/:id", (req, res, next) => {
-    axios.get(`https://api.themoviedb.org/3/movie/${req.params.id}/watch/providers?api_key=8ef1582bce336c778e54d74f414322a7`).then(response => {
-        // console.log(response.data)
-        res.send(response.data)
-    })
-        .catch(err => next(err))
-})
-
-// add like to movie (user and movie IDs in request body)
-router.post("/like", like)
-// remove like from movie (user and movie IDs in request body)
-router.post("/unlike", unlike)
-
+// get recommendations for the user based on their personal data
+// - liked movies are used to originate recommendations
+// - liked genres are used to differentiate the recommendations
 router.get("/user/:id", (req, res, next) => {
     let movies = {}
     axios.get(`http://localhost:4000/users/get/${req.params.id}`).then(async (response) => {
@@ -124,11 +100,5 @@ router.get("/user/:id", (req, res, next) => {
         }
     }).catch(err => next(err))
 })
-
-// // router.route("/details/comment/:id").get(FindByImdbIds)
-// // router.route("/details/:id").post(create)
-// // router
-// //     .route("/comment/:id")
-// //     .patch(authenticate, update)
 
 module.exports = router

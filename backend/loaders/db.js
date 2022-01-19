@@ -1,8 +1,7 @@
 const dotenv = require("dotenv")
-dotenv.config({ path: `./config/.env` });
-
 const Mongoose = require("mongoose");
 
+dotenv.config({ path: `./config/.env` });
 const db = Mongoose.connection;
 
 db.once("open", () => {
@@ -15,6 +14,5 @@ const connectDB = async () => {
         useUnifiedTopology: true,
     })
 }
-module.exports = {
-    connectDB
-}
+
+module.exports = { connectDB }

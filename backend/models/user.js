@@ -1,6 +1,4 @@
-const { number } = require("joi");
 const mongoose = require("mongoose");
-
 
 const UserSchema = new mongoose.Schema(
   {

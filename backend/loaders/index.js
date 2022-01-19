@@ -1,6 +1,2 @@
-const {connectDB} = require("./db")
-
-module.exports=() =>
-{
-    connectDB();
-}
+const { connectDB } = require("./db")
+module.exports = () => { connectDB() }

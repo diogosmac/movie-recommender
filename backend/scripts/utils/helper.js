@@ -12,6 +12,7 @@ const generateAccesToken = (user) => {
 const generateRefreshToken = (user) => {
     return JWT.sign({ name: user.name, ...user }, process.env.REFRESH_TOKEN_SECRET_KEY);
 }
+
 module.exports = {
     passwordToHash,
     generateAccesToken,
