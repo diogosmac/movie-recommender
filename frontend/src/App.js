@@ -11,6 +11,7 @@ import DetailPage from './components/DetailPage';
 import SearchPage from './components/SearchPage';
 import Profile from './components/profile'
 import Navbar from './components/navbar';
+import Recommendations from './components/Recommendations';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Navbar />
         <br />
         <Route path="/" exact component={MoviePage} />
+        <Route path="/recommendations" exact component={Recommendations} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/signin" component={LogIn} />
         <Route path="/profile" exact component={Profile} />

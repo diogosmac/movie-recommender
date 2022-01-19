@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom"
 import axios from "axios";
 import { Grid } from "@material-ui/core";
 import {
@@ -7,60 +8,39 @@ import {
   CardTitle,
   Card,
   CardBody,
-  Button,
-  ButtonGroup
+  Button
 } from "reactstrap";
 import TextTruncate from "react-text-truncate";
 
-export default class MoviePage extends Component {
+export default class Recommendations extends Component {
   constructor(props) {
     super(props);
     this.state = {
       movies: [],
-      pageNumber: 1
+      userID: 0
     };
   }
 
-  nextpage = () => {
-    this.setState({ pageNumber: this.state.pageNumber + 1 });
-    console.log(this.state.pageNumber)
-    axios
-      .get(`http://localhost:4000/movie/${this.state.pageNumber}`)
-      .then((response) => {
-        this.setState({ movies: response.data });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
-  previouspage = () => {
-    if (this.state.pageNumber >= 1) { this.setState({ pageNumber: this.state.pageNumber - 1 }); }
-    console.log(this.state.pageNumber)
-    axios
-      .get(`http://localhost:4000/movie/${this.state.pageNumber}`)
-      .then((response) => {
-        this.setState({ movies: response.data });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
-
   componentDidMount() {
-    axios
-      .get(`http://localhost:4000/movie/${this.state.pageNumber}`)
-      .then((response) => {
-        console.log(this.state.pageNumber)
-        this.setState({ movies: response.data });
-
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    const user = localStorage.getItem('user_id')
+    this.setState({ userID: user })
+    if (user !== null) {
+      axios
+        .get(`http://localhost:4000/movie/user/${user}`)
+        .then((response) => {
+          console.log(this.state.pageNumber)
+          this.setState({ movies: response.data });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   }
 
   render() {
+    if (this.state.userID === null) {
+      return <Redirect to={'/'} />;
+    }
     return (
       <div>
         <tbody>
@@ -99,20 +79,6 @@ export default class MoviePage extends Component {
 
             })}
           </Grid>
-          <ButtonGroup>
-            <Button
-              color="primary"
-              onClick={this.previouspage}
-            >
-              Previous Page
-            </Button>
-            <Button
-              color="primary"
-              onClick={this.nextpage}
-            >
-              Next Page
-            </Button>
-          </ButtonGroup>
         </tbody>
       </div>
     );

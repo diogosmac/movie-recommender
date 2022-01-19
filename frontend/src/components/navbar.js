@@ -59,6 +59,11 @@ export default class Navbar extends Component {
           </Link>
         </li>
         <li className="navbar-item">
+          <Link to="/recommendations" className="nav-link">
+            For Me
+          </Link>
+        </li>
+        <li className="navbar-item">
           <Logout triggerNavbar={this.trigger} />
         </li>
       </ul>
