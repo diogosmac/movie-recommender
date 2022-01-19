@@ -9,7 +9,7 @@ const authenticateToken = require("../middlewares/authenticate");
 
 router.route("/").get(index);
 router.route("/").post(validate(schemas.createValidation), create);
-router.route("/get/:id").get(getUser)
+router.route("/get/:_id").get(getUser)
 router.route("/login").post(validate(schemas.loginValidation), login);
 router.post("/logout", (req, res) => {
     res.json({})

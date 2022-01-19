@@ -1,4 +1,4 @@
-const { insert, list, loginUser, getUserByEmail, likeMovie, unlikeMovie, checkLiked } = require("../services/User")
+const { insert, list, loginUser, getUserByID, likeMovie, unlikeMovie, checkLiked } = require("../services/User")
 const httpStatus = require("http-status")
 const { response } = require("express")
 const {
@@ -47,9 +47,7 @@ const index = (req, res) => {
 }
 
 const getUser = async (req, res) => {
-  console.log("getUser - request body:", req.body)
-  console.log("getUser - request params:", req.params)
-  getUserByEmail(req.body)
+  getUserByID(req.params)
     .then((response) => {
       res.status(httpStatus.OK).send(response)
     })
@@ -58,16 +56,8 @@ const getUser = async (req, res) => {
     })
 }
 
-const isLiked = (req, res) => {
-  console.log(req)
-  checkLiked(req.body.user, req.body.movie_id).then((response) => {
-    console.log(response)
-    return res.status(httpStatus.OK).send(response)
-  })
-}
-
 const like = (req, res) => {
-  likeMovie(req.body.user, req.body.movie_id).then((user) => {
+  likeMovie(req.body.user_id, req.body.movie_id).then((user) => {
     if (!user) {
       return res
         .status(httpStatus.NOT_FOUND)
@@ -78,7 +68,7 @@ const like = (req, res) => {
 }
 
 const unlike = (req, res) => {
-  unlikeMovie(req.body.user, req.body.movie_id).then((user) => {
+  unlikeMovie(req.body.user_id, req.body.movie_id).then((user) => {
     if (!user) {
       return res
         .status(httpStatus.NOT_FOUND)
@@ -93,7 +83,6 @@ module.exports = {
   index,
   login,
   getUser,
-  isLiked,
   like,
   unlike,
 }

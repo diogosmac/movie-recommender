@@ -86,7 +86,7 @@ export default class Navbar extends Component {
           </label>
           <input
             value={this.state.search}
-            onInput={this.updateState}
+            onChange={this.updateState}
             type="text"
             id="header-search"
             placeholder="Search Movie by Name"

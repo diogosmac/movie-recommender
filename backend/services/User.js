@@ -2,8 +2,8 @@ const user = require("../models/user")
 const User = require("../models/user")
 
 const insert = (userData) => {
-    const user = new User(userData)
-    return user.save()
+    const newUser = new User(userData)
+    return newUser.save()
 }
 
 const list = () => {
@@ -14,36 +14,27 @@ const loginUser = (loginData) => {
     return user.findOne(loginData)
 }
 
-const getUserByEmail = (email) => {
-    return user.findOne(email)
+const getUserByID = (id) => {
+    return user.findOne(id)
 }
 
-const checkLiked = (userId, movieId) => {
-    console.log('userId', userId)
-    const user = user.findOne(userId)
-    console.log('user', user)
-    return user.find({ liked_movies: { "$in": movieId } })
-    // return user.liked_movies.includes(movieId)
+const likeMovie = async (userID, movieID) => {
+    const currentUser = await user.findOne({ _id: userID })
+    currentUser.liked_movies.push(movieID)
+    return currentUser.save()
 }
 
-const likeMovie = (userId, movieId) => {
-    const user = user.findOne(userId)
-    user.liked_movies.push(movieId)
-    return user.save()
-}
-
-const unlikeMovie = (userId, movieId) => {
-    const user = user.findOne(userId)
-    user.liked_movies = array.filter((v, i, a) => { return v !== movieId })
-    return user.save()
+const unlikeMovie = async (userID, movieID) => {
+    const currentUser = await user.findOne({ _id: userID })
+    currentUser.liked_movies = currentUser.liked_movies.filter((v, i, a) => { return v !== parseInt(movieID) })
+    return currentUser.save()
 }
 
 module.exports = {
     insert,
     list,
     loginUser,
-    getUserByEmail,
-    checkLiked,
+    getUserByID,
     likeMovie,
     unlikeMovie,
 }

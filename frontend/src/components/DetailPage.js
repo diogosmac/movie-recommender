@@ -24,6 +24,20 @@ export default class DetailPage extends Component {
         this.toggleHover = () => {
             this.setState({ likeHovered: !this.state.likeHovered })
         }
+
+        this.likeMovie = () => {
+            axios.post(`http://localhost:4000/movie/like`, this.state.combination)
+                .then(() => {
+                    this.setState({ liked: true })
+                })
+        }
+
+        this.unlikeMovie = () => {
+            axios.post(`http://localhost:4000/movie/unlike`, this.state.combination)
+                .then((response) => {
+                    this.setState({ liked: false })
+                })
+        }
     }
 
     componentDidMount() {
@@ -44,15 +58,14 @@ export default class DetailPage extends Component {
                 }
             })
 
-        const userEmail = localStorage.getItem('email')
-        if (userEmail !== null) {
-            const data = {
-                user: { email: userEmail },
-                movie_id: id
-            }
-            console.log(data)
-            axios.get(`http://localhost:4000/movie/checkLike`, data).then((response) => {
-                console.log(response)
+        const userID = localStorage.getItem('user_id')
+        if (userID !== null) {
+            axios.get(`http://localhost:4000/users/get/${userID}`).then((response) => {
+                const liked_movies = response.data.liked_movies
+                this.setState({
+                    combination: { user_id: userID, movie_id: id },
+                    liked: liked_movies.includes(parseInt(id))
+                })
             })
         }
     }
@@ -65,36 +78,36 @@ export default class DetailPage extends Component {
         return genres.join(', ')
     }
 
-    redHeart() {
-        return <FaHeart class='movie-fav' onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} />
+    outlineHeart() {
+        return <FaRegHeart className='movie-fav' onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} onClick={this.unlikeMovie} />
     }
 
-    outlineHeart() {
-        return <FaRegHeart class='movie-fav' onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} />
+    redHeart() {
+        return <FaHeart className='movie-fav' onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} onClick={this.likeMovie} />
     }
 
     render() {
         return (
             <div>
-                <div class='movie-header'>
-                    <span class='movie-title'>{this.state.movies.title}</span>
-                    <span class='movie-detail genre'><div>{this.state.movies.genres}</div></span>
-                    <span class='movie-detail year'>{this.state.movies.release_date}<div></div></span>
-                    <span class='movie-detail duration'><div>{`${this.state.movies.runtime} min`}</div></span>
+                <div className='movie-header'>
+                    <span className='movie-title'>{this.state.movies.title}</span>
+                    <span className='movie-detail genre'><div>{this.state.movies.genres}</div></span>
+                    <span className='movie-detail year'>{this.state.movies.release_date}<div></div></span>
+                    <span className='movie-detail duration'><div>{`${this.state.movies.runtime} min`}</div></span>
                 </div>
-                <div class='row movie-page'>
-                    <div class='poster-parent'>
-                        <img class='movie-poster' src={`https://image.tmdb.org/t/p/w200/${this.state.movies.poster_path}`} alt='Movie Poster' />
+                <div className='row movie-page'>
+                    <div className='poster-parent'>
+                        <img className='movie-poster' src={`https://image.tmdb.org/t/p/w200/${this.state.movies.poster_path}`} alt='Movie Poster' />
                     </div>
-                    <div class='col movie-content'>
+                    <div className='col movie-content'>
                         <div>
-                            <div class='movie-content-header'>
-                                <div class='stretch'>
-                                    <span class='synopse-title'>SYNOPSE</span>
+                            <div className='movie-content-header'>
+                                <div className='stretch'>
+                                    <span className='synopse-title'>SYNOPSE</span>
                                     <div>
                                         {
-                                            (localStorage.getItem('email') !== null)
-                                                ? <div class='movie-fav'>
+                                            (localStorage.getItem('user_id') !== null)
+                                                ? <div className='movie-fav'>
                                                     {
                                                         (this.state.liked)
                                                             ? (this.state.likeHovered)
@@ -108,15 +121,15 @@ export default class DetailPage extends Component {
                                                 : <span className='movie-fav-not-logged'><Link to='/signin'>Log in</Link> in order to like this movie</span>
                                         }
                                         <FaStar color='gold' />
-                                        <span class='movie-rating'><div>{this.state.movies.vote_average}</div></span>
+                                        <span className='movie-rating'><div>{this.state.movies.vote_average}</div></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class='movie-synopse'>
+                            <div className='movie-synopse'>
                                 <div> {this.state.movies.overview} </div>
                             </div>
                         </div>
-                        <div class='movie-where-to-watch'>
+                        <div className='movie-where-to-watch'>
                             <Link to={{ pathname: "https://example.zendesk.com/hc/en-us/articles/123456789-Privacy-Policies" }} target="_blank" />
                             {
                                 this.state.streams !== null
@@ -132,8 +145,8 @@ export default class DetailPage extends Component {
                         </div>
                     </div>
                 </div>
-                <div class='movie-comments'>
-                    <span class='comments-header'>COMMENTS</span>
+                <div className='movie-comments'>
+                    <span className='comments-header'>COMMENTS</span>
                     <Comments
                         commentsUrl="/comments"
                         currentUserId="1"

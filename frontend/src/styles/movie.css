@@ -110,6 +110,10 @@
   align-items: center;
 }
 
+.movie-content-header > .stretch > div > .movie-fav:hover {
+  cursor: pointer;
+}
+
 .movie-content-header > .stretch > div > .movie-fav-not-logged {
   margin-right: 2em;
 }

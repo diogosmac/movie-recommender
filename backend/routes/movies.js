@@ -1,11 +1,10 @@
 const express = require("express")
 const router = express.Router()
 const axios = require("axios")
-const { isLiked, like, unlike } = require("../controllers/User")
+const { like, unlike } = require("../controllers/User")
 const { create, FindByImdbIds, update } = require("../controllers/Comment")
-const { createLikes, FindByImdbIdsLikes } = require("../controllers/Likes")
 // const validate = require("../middlewares/validate")
-const authenticate = require("../middlewares/authenticate")
+// const authenticate = require("../middlewares/authenticate")
 
 // get generic recommendations (specific page number)
 router.get("/:pageNumber", (req, res, next) => {
@@ -53,20 +52,15 @@ router.get("/details/streaming/:id", (req, res, next) => {
         .catch(err => next(err))
 })
 
-// // router.route("/details/comment/:id").get(FindByImdbIds)
-// // router.route("/details/:id").post(create)
-// // router.route("/details/like/:id").get(FindByImdbIdsLikes)
-// // router.route("/details/likes/:id").post(createLikes)
-
-// check if movie is liked (user and movie IDs in request body)
-router.get("/checklike", isLiked)
 // add like to movie (user and movie IDs in request body)
 router.post("/like", like)
 // remove like from movie (user and movie IDs in request body)
 router.post("/unlike", unlike)
 
-// router
-//     .route("/comment/:id")
-//     .patch(authenticate, update)
+// // router.route("/details/comment/:id").get(FindByImdbIds)
+// // router.route("/details/:id").post(create)
+// // router
+// //     .route("/comment/:id")
+// //     .patch(authenticate, update)
 
 module.exports = router

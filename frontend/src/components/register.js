@@ -1,6 +1,5 @@
 import React, { Component } from "react"
 import { Redirect, Link } from "react-router-dom"
-import { useState } from "react";
 import axios from "axios"
 
 import Select from "react-select";
@@ -33,15 +32,16 @@ export default class register extends Component {
     this.onChangeAge = this.onChangeAge.bind(this);
     this.onChangeCountry = this.onChangeCountry.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    }
+  }
 
   onChangeGenres = (position) => {
-      let newGenres = this.state.genres;
-      newGenres[position] = !this.state.genres[position]
-    this.setState({genres: newGenres
+    let newGenres = this.state.genres;
+    newGenres[position] = !this.state.genres[position]
+    this.setState({
+      genres: newGenres
     })
     console.log(this.state.genres)
-    }
+  }
 
   onChangeName(event) {
     this.setState({ name: event.target.value });
@@ -67,7 +67,7 @@ export default class register extends Component {
     let updatedGenres = []
 
     this.state.genres.forEach(function (value, index) {
-      if(value) updatedGenres.push(genresList[index])
+      if (value) updatedGenres.push(genresList[index])
     });
 
     const newUser = {
@@ -92,14 +92,14 @@ export default class register extends Component {
       liked_movies: [],
     });
 
-    
+
 
     console.log(newUser);
     axios
       .post("http://localhost:4000/users", newUser)
       .then((res) => {
         console.log(res.error);
-    })
+      })
   }
 
   render() {
