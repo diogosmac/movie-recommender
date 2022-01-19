@@ -19,7 +19,7 @@ app.use(helmet());
 // API endpoints
 
 app.listen(process.env.PORT, function () {
-  console.log("Server is running on port: " + process.env.PORT);
+  console.log(">> Server is running (Port " + process.env.PORT + ")");
   app.use("/users", UserRoutes)
   app.use("/movie", MovieRoutes)
 });

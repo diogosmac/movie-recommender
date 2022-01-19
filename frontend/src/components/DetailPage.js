@@ -5,9 +5,7 @@ import '../styles/comments.css'
 
 import Comments from './comments/comments';
 
-import { FaRegHeart, FaStar } from 'react-icons/fa';
-// import FaHeart when likes implemented
-// import { SiNetflix, SiAmazon, SiHbo } from 'react-icons/si';
+import { FaRegHeart, FaHeart, FaStar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 export default class DetailPage extends Component {
@@ -19,34 +17,44 @@ export default class DetailPage extends Component {
             id: this.props.match.params.id,
             movies: [],
             streams: null,
-            likes: 0
+            liked: false,
+            likeHovered: false
         };
 
+        this.toggleHover = () => {
+            this.setState({ likeHovered: !this.state.likeHovered })
+        }
     }
 
     componentDidMount() {
-        var id = this.state.id
+        const id = this.state.id
         axios.get(`http://localhost:4000/movie/details/${id}`)
             .then((response) => {
                 let genres = response.data.genres.map(g => g.name);
                 response.data.genres = genres.join(', ')
-                console.log(response.data)
                 this.setState({ movies: response.data });
-                console.log(response.data);
             })
 
         axios.get(`http://localhost:4000/movie/details/streaming/${id}`)
             .then((response) => {
+                const country = localStorage.getItem('country') || 'PL'
                 let results = response.data.results
-                if ('PL' in results) {
-                    this.setState({ streams: results.PL.link })
+                if (country in results) {
+                    this.setState({ streams: results[country].link })
                 }
             })
 
-        axios.get(`http://localhost:4000/movie/details/like/${id}`).then((response) => {
-            this.setState({ likes: response.data.length })
-            console.log(this.likes)
-        })
+        const userEmail = localStorage.getItem('email')
+        if (userEmail !== null) {
+            const data = {
+                user: { email: userEmail },
+                movie_id: id
+            }
+            console.log(data)
+            axios.get(`http://localhost:4000/movie/checkLike`, data).then((response) => {
+                console.log(response)
+            })
+        }
     }
 
     getGenreString() {
@@ -55,6 +63,14 @@ export default class DetailPage extends Component {
             genres.push_back(genre.name);
         }
         return genres.join(', ')
+    }
+
+    redHeart() {
+        return <FaHeart class='movie-fav' onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} />
+    }
+
+    outlineHeart() {
+        return <FaRegHeart class='movie-fav' onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover} />
     }
 
     render() {
@@ -76,10 +92,21 @@ export default class DetailPage extends Component {
                                 <div class='stretch'>
                                     <span class='synopse-title'>SYNOPSE</span>
                                     <div>
-                                        <div class='movie-fav'>
-                                            {this.state.likes}
-                                            <FaRegHeart class='movie-fav' />
-                                        </div>
+                                        {
+                                            (localStorage.getItem('email') !== null)
+                                                ? <div class='movie-fav'>
+                                                    {
+                                                        (this.state.liked)
+                                                            ? (this.state.likeHovered)
+                                                                ? this.outlineHeart()
+                                                                : this.redHeart()
+                                                            : (this.state.likeHovered)
+                                                                ? this.redHeart()
+                                                                : this.outlineHeart()
+                                                    }
+                                                </div>
+                                                : <span className='movie-fav-not-logged'><Link to='/signin'>Log in</Link> in order to like this movie</span>
+                                        }
                                         <FaStar color='gold' />
                                         <span class='movie-rating'><div>{this.state.movies.vote_average}</div></span>
                                     </div>
@@ -112,7 +139,7 @@ export default class DetailPage extends Component {
                         currentUserId="1"
                     />
                 </div>
-            </div>
+            </div >
         )
     }
 }

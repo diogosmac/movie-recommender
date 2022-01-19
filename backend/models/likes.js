@@ -3,16 +3,14 @@ const mongoose = require("mongoose");
 
 
 const LikesSchema = new mongoose.Schema({
-    user : {
-        type :mongoose.Types.ObjectId,
-        ref :"user",
+    user: {
+        type: mongoose.Types.ObjectId,
+        ref: "user",
     },
     imdb_id: {
         type: String,
-        required:true,
+        required: true,
     }
-
-   
 },
     { timestamps: true }
 );

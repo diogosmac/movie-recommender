@@ -42,9 +42,11 @@ export default class Login extends Component {
                     {
                         console.log("User registered and logged in")
 
-                        localStorage.name = res.data.name
-                        localStorage.accessLevel = res.data.accessLevel
-                        localStorage.token = res.data.tokens.access_token
+                        localStorage.setItem('name', res.data.name)
+                        localStorage.setItem('user_id', res.data._id)
+                        localStorage.setItem('country', res.data.country)
+                        localStorage.setItem('accessLevel', res.data.accessLevel)
+                        localStorage.setItem('token', res.data.tokens.access_token)
 
                         this.setState({ isLoggedIn: true })
                     }

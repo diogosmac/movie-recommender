@@ -1,143 +1,155 @@
 .movie-page {
-    display: flex;
-    width: 100%;
-  }
-  
-  .movie-info {
-    max-width: 300px;
-  }
-  
-  /* HEADER */
-  
-  .movie-header {
-    display: flex;
-    height: auto;
-    width: auto;
-    align-items: center;
-    margin-bottom: 1em;
-  }
-  
-  .movie-title {
-    font-weight: 600;
-    font-size: 2em;
-  }
-  
-  .movie-header > .movie-title {
-    padding-right: 0.5em;
-  }
-  
-  .movie-detail {
-    font-weight: 600;
-    padding: 0 0.5em;
-    border-left: 1px solid;
-  }
-  
-  .movie-detail.genre {
-    border-left: 0px;
-  }
-  
-  .movie-year {
-    /* height: 100%; */
-    font-weight: 600;
-  }
-  
-  .movie-header > .movie-year {
-    height: inherit;
-    padding: 0 0.5em;
-    border-left: 1px solid;
-  }
-  
-  .movie-duration {
-    height: 100%;
-    font-weight: 600;
-  }
-  
-  .movie-header > .movie-duration {
-    padding-left: 0.5em;
-    border-left: 1px solid;
-  }
-  
-  /* POSTER */
-  
-  .poster-parent {
-    /* width: 300px; */
-    width: 25vw;
-  }
-  
-  .movie-poster {
-    display: block;
-    max-width: 100%;
-    height: auto;
-  }
-  
-  /* CONTENT */
-  
-  .movie-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-  
-  .movie-content-header {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-  }
-  
-  .movie-content-header > .stretch {
-    display: flex;
-    flex-grow: 1;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .movie-content-header > .stretch > div {
-    display: flex;
-    height: 100%;
-    align-items: center;
-  }
-  
-  .movie-content-header > .stretch > div > span {
-    padding-left: 0.5em;
-  }
-  
-  .movie-content-header > .stretch > div > .movie-fav {
-    margin-right: 2em;
-    color: red;
-  }
-  
-  .movie-content-header > .stretch > div > .movie-favved {
-    margin-right: 2em;
-    color: red;
-  }
-  
-  .synopse-title {
-    font-weight: 600;
-    font-size: 1.5em;
-  }
-  
-  .movie-rating {
-    display: inline-block;
-  }
-  
-  .movie-where-to-watch {
-    display: flex;
-    margin-top: 2em;
-    font-weight: 600;
-    align-items: center;
-  }
-  
-  .movie-where-to-watch > span {
-    margin-right: 0.25em;
-  }
-  
-  .streaming-link {
-    color: black;
-    margin: 0 0.25em;
-  }
-  
-  .movie-comments {
-    margin-top: 1em;
-    font-weight: 600;
-    font-size: 1.5em;
-  }
+  display: flex;
+  width: 100%;
+}
+
+.movie-info {
+  max-width: 300px;
+}
+
+/* HEADER */
+
+.movie-header {
+  display: flex;
+  height: auto;
+  width: auto;
+  align-items: center;
+  margin-bottom: 1em;
+  background-color: #F8F9FA;
+}
+
+.movie-title {
+  margin-left: 0.5em;
+  font-weight: 600;
+  font-size: 2em;
+}
+
+.movie-header > .movie-title {
+  padding-right: 0.5em;
+}
+
+.movie-detail {
+  font-weight: 600;
+  padding: 0 0.5em;
+  border-left: 1px solid;
+}
+
+.movie-detail.genre {
+  border-left: 0px;
+}
+
+.movie-year {
+  /* height: 100%; */
+  font-weight: 600;
+}
+
+.movie-header > .movie-year {
+  height: inherit;
+  padding: 0 0.5em;
+  border-left: 1px solid;
+}
+
+.movie-duration {
+  height: 100%;
+  font-weight: 600;
+}
+
+.movie-header > .movie-duration {
+  padding-left: 0.5em;
+  border-left: 1px solid;
+}
+
+/* POSTER */
+
+.poster-parent {
+  /* width: 300px; */
+  width: 25vw;
+}
+
+.movie-poster {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* CONTENT */
+
+.movie-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.movie-content-header {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+}
+
+.movie-content-header > .stretch {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.movie-content-header > .stretch > div {
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.movie-content-header > .stretch > div > span {
+  padding-left: 0.5em;
+}
+
+.movie-content-header > .stretch > div > .movie-fav {
+  margin-right: 2em;
+  color: red;
+  display: flex;
+  align-items: center;
+}
+
+.movie-content-header > .stretch > div > .movie-fav-not-logged {
+  margin-right: 2em;
+}
+
+.movie-content-header > .stretch > div > .movie-favved {
+  margin-right: 2em;
+  color: red;
+}
+
+.synopse-title {
+  font-weight: 600;
+  font-size: 1.5em;
+}
+
+.movie-rating {
+  display: inline-block;
+}
+
+.movie-synopse {
+  margin-top: 1em;
+}
+
+.movie-where-to-watch {
+  display: flex;
+  margin-top: 2em;
+  font-weight: 600;
+  align-items: center;
+}
+
+.movie-where-to-watch > span {
+  margin-right: 0.25em;
+}
+
+.streaming-link {
+  color: black;
+  margin: 0 0.25em;
+}
+
+.movie-comments {
+  margin-top: 1em;
+  font-weight: 600;
+  font-size: 1.5em;
+}

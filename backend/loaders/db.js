@@ -6,7 +6,7 @@ const Mongoose = require("mongoose");
 const db = Mongoose.connection;
 
 db.once("open", () => {
-    console.log("Db connection is succesfull !")
+    console.log(">> Successfully connected to the Database")
 })
 
 const connectDB = async () => {

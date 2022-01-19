@@ -10,6 +10,8 @@ export default class Logout extends Component {
     logout = () => {
         localStorage.clear('token');
         localStorage.clear('name');
+        localStorage.clear('user_id');
+        localStorage.clear('country');
         localStorage.clear('accessLevel');
         this.setState({ navigate: true })
         this.props.triggerNavbar();
