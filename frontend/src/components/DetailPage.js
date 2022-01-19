@@ -28,14 +28,14 @@ export default class DetailPage extends Component {
         this.likeMovie = () => {
             axios.post(`http://localhost:4000/movie/like`, this.state.combination)
                 .then(() => {
-                    this.setState({ liked: true })
+                    this.setState({ liked: !this.state.liked })
                 })
         }
 
         this.unlikeMovie = () => {
             axios.post(`http://localhost:4000/movie/unlike`, this.state.combination)
-                .then((response) => {
-                    this.setState({ liked: false })
+                .then(() => {
+                    this.setState({ liked: !this.state.liked })
                 })
         }
     }
